@@ -17,7 +17,7 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-    @GetMapping("all")
+    @GetMapping("/all")
     public List<DoctorModel> getAllDoctors(){
         return doctorService.getAllDoctors();
     }
