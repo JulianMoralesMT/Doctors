@@ -13,10 +13,9 @@ public class DoctorService {
     @Autowired
     private DoctorRepository doctorRepository;
 
-
-    public List <DoctorModel> getAllDoctors(){
+    public List<DoctorModel> getAllDoctors()
+    {
         return doctorRepository.getAllDoctors();
-
     }
 
     public Optional <DoctorModel> getDoctor(Integer id){
@@ -27,12 +26,12 @@ public class DoctorService {
         return doctorRepository.saveDoctor(doctorModel);
     }
 
-    public boolean deleteDoctor(Integer id){
+    public Boolean deleteDoctor(Integer id)
+    {
         return doctorRepository.deleteDoctor(id);
     }
 
     public DoctorModel updateDoctor(DoctorModel doctorModel){
         return doctorRepository.updateDoctor(doctorModel);
     }
-
 }

@@ -1,76 +1,101 @@
 package com.doctors.model;
 
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name="doctor")
+@Table(name = "doctor")
 
 public class DoctorModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "name", nullable = false, length = 45)
     private String name;
-    private String email;
-    private Integer age;
+
+    @Column(name = "department", nullable = false, length = 45)
+    private String department;
+    @Column(name = "year", nullable = false, length = 4)
+    private Integer year;
+
+    private String description;
+    @ManyToOne
+    @JoinColumn(name = "specialtyId")
+    @JsonIgnoreProperties("doctors")
+    private SpecialtyModel specialty;
+    //{doctor,client}
+    @OneToMany(mappedBy = "doctor")
+    @JsonIgnoreProperties({"doctor", "client"})
+    private List<MessageModel> messages;
+    @OneToMany(mappedBy = "doctor")
+    @JsonIgnoreProperties({"doctor", "client"})
+    private List<ReservationModel> reservations;
 
     public DoctorModel() {
     }
 
-    public DoctorModel(String name, String email, Integer age) {
+    public DoctorModel(Integer id, Integer year, String name, String description) {
+        this.id = id;
+        this.year = year;
         this.name = name;
-        this.email = email;
-        this.age = age;
+        this.description = description;
     }
 
-    public DoctorModel(Integer id, String name, String email, Integer age) {
-        this.id = id;
+    public DoctorModel(Integer year, String name, String description) {
+        this.year = year;
         this.name = name;
-        this.email = email;
-        this.age = age;
+        this.description = description;
     }
 
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getEmail() {
-        return email;
+    public String getDepartment() {
+        return department;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDepartment(String department) {
+        this.department = department;
     }
-
-    public Integer getAge() {
-        return age;
+    public Integer getYear() {
+        return year;
     }
-
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setYear(Integer year) {
+        this.year = year;
     }
-
-    @Override
-    public String toString() {
-        return "DoctorModel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", age=" + age +
-                '}';
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public SpecialtyModel getSpecialty() {
+        return specialty;
+    }
+    public void setSpecialty(SpecialtyModel specialty) {
+        this.specialty = specialty;
+    }
+    public List<MessageModel> getMessages() {
+        return messages;
+    }
+    public void setMessages(List<MessageModel> messages) {
+        this.messages = messages;
+    }
+    public List<ReservationModel> getReservations() {
+        return reservations;
+    }
+    public void setReservations(List<ReservationModel> reservations) {
+        this.reservations = reservations;
     }
 }

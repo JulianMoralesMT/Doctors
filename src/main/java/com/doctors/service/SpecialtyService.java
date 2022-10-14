@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Service
 public class SpecialtyService {
-
     @Autowired
 
     private SpecialtyRepository specialtyRepository;
@@ -34,6 +33,4 @@ public class SpecialtyService {
 
     public SpecialtyModel updateSpecialty(SpecialtyModel specialtyModel){
         return specialtyRepository.updateSpecialty(specialtyModel);  }
-
-
 }
